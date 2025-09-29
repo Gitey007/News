@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Location News</title>
+  <style>
+    *{
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      color: #333;
+    }
+    .search-box {
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: 500px;
+      border-radius: 4px;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background: #007BFF;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 0 4px 4px 0;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .news {
+      max-width: 800px;
+      margin: 20px auto;
+    }
+    .article {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .article h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .article p {
+      margin: 8px 0 0;
+    }
+    .article a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+    .article a:hover {
+      text-decoration: underline;
+    }
+     #box{
+      background-color: #c9c9d7;
+      border: 1px solid lightgray;
+      padding: 5px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+
+  <h1>Location News</h1>
+
+  <div class="search-box">
+    <input type="text" id="locationInput" placeholder="Enter location (e.g., Delhi)">
+    <button onclick="getNews()">Search</button>
+  </div>
+
+  <div id="newsContainer" class="news"></div>
+  </div>
+
+  <script>
+    const API_KEY = "54be8b662d1445918b5942b5bc08169c"; 
+
+    async function getNews() {
+      const location = document.getElementById("locationInput").value.trim();
+      const container = document.getElementById("newsContainer");
+      container.innerHTML = "";
+
+      if (!location) {
+        container.innerHTML = "<p>Please enter a location.</p>";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(location)}&apiKey=${API_KEY}`);
+        const data = await res.json();
+
+        if (data.articles && data.articles.length > 0) {
+          data.articles.forEach(article => {
+            const div = document.createElement("div");
+            div.className = "article";
+            div.innerHTML = `
+              <h3><a href="${article.url}" target="_blank">${article.title}</a></h3>
+              <small>${article.source.name} • ${new Date(article.publishedAt).toLocaleString()}</small>
+              <p>${article.description || ""}</p>
+            `;
+            container.appendChild(div);
+          });
+        } else {
+          container.innerHTML = "<p>No news found for this location.</p>";
+        }
+      } catch (err) {
+        container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+      }
+    }
+  </script>
+
+</body>
+</html>
