@@ -3,93 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Location News</title>
+  <title>Location News | Ultra Smooth</title>
   <style>
-    *{
+    /* --- 1. Base Setup & Font --- */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f4f4f9;
+      font-family: 'Poppins', sans-serif;
+      /* Animated Gradient Background */
+      background: linear-gradient(45deg, #4e54c8, #8f94fb); 
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 50px;
+      overflow-x: hidden;
       color: #333;
     }
+
+    /* --- 2. Floating Background Particles (The "Alive" feel) --- */
+    .circles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1; /* Behind everything */
+    }
+
+    .circles li {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      animation: animate 25s linear infinite;
+      bottom: -150px;
+      border-radius: 4px;
+    }
+
+    .circles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+    .circles li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+    .circles li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+    .circles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+    .circles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+    .circles li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+    .circles li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+    .circles li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+    .circles li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+    .circles li:nth-child(10){ left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+
+    @keyframes animate {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+      100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+    }
+
+    /* --- 3. Main Glass Container --- */
+    #box {
+      width: 90%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px); /* Frosted Glass Effect */
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.5);
+      animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy entrance */
+      margin-bottom: 50px;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
     h1 {
       text-align: center;
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      color: #333;
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #2c3e50;
+      letter-spacing: -1px;
     }
+
+    /* --- 4. Smooth Input Section --- */
     .search-box {
       display: flex;
       justify-content: center;
-      margin: 20px auto;
-      max-width: 500px;
-      border-radius: 4px;
+      margin-bottom: 30px;
+      position: relative;
     }
+
+    input {
+      width: 70%;
+      padding: 15px 20px;
+      font-size: 16px;
+      border: 2px solid transparent;
+      background: #f0f2f5;
+      border-radius: 50px;
+      outline: none;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    input:focus {
+      width: 80%; /* Expands on focus */
+      background: #fff;
+      border-color: #4e54c8;
+      box-shadow: 0 5px 15px rgba(78, 84, 200, 0.2);
+    }
+
+    button {
+      position: absolute;
+      right: 10%; /* Adjust based on input width */
+      top: 5px;
+      bottom: 5px;
+      padding: 0 25px;
+      border: none;
+      background: #4e54c8;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      opacity: 0; /* Hidden until hover or focus context, adjusted below */
+      transform: translateX(20px);
+      pointer-events: none;
+    }
+    
+    /* Show button logic: We'll actually keep it simple for this demo and place it next to input 
+       or use a cleaner flex approach below for reliability */
+    
+    /* Re-doing search box for flex layout to be safer */
+    .search-box {
+      background: #fff;
+      border-radius: 50px;
+      padding: 5px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      display: flex;
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .search-box:hover, .search-box:focus-within {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
     input {
       flex: 1;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 4px 0 0 4px;
-      outline: none;
-    }
-    button {
-      padding: 10px 15px;
       border: none;
-      background: #007BFF;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 0 4px 4px 0;
+      background: transparent;
+      box-shadow: none;
+      width: auto;
     }
+    input:focus {
+      width: auto;
+      box-shadow: none;
+      border: none;
+    }
+
+    button {
+      position: static;
+      opacity: 1;
+      transform: none;
+      pointer-events: all;
+      margin-left: 10px;
+      background: linear-gradient(45deg, #4e54c8, #8f94fb); 
+    }
+
     button:hover {
-      background: #0056b3;
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(78, 84, 200, 0.4);
     }
-    .news {
-      max-width: 800px;
-      margin: 20px auto;
+    
+    button:active {
+      transform: scale(0.95);
     }
+
+    /* --- 5. News Cards Animation --- */
     .article {
       background: #fff;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+      
+      /* Initial State for Animation */
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+      
+      /* Smooth Hover Transition */
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .article h3 {
-      margin: 0;
-      font-size: 18px;
+
+    /* The 'bounce' class is added by JS */
+    .article.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
-    .article p {
-      margin: 8px 0 0;
+
+    .article:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.1);
     }
-    .article a {
-      color: #007BFF;
+
+    .article h3 a {
+      color: #333;
       text-decoration: none;
+      background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+      background-repeat: no-repeat;
+      background-size: 100% 0px; /* Hidden underline initially */
+      background-position: 0 100%;
+      transition: background-size 0.3s ease;
     }
-    .article a:hover {
-      text-decoration: underline;
+
+    .article:hover h3 a {
+      background-size: 100% 10px; /* Growing underline highlight */
     }
-     #box{
-      background-color: #c9c9d7;
-      border: 1px solid lightgray;
-      padding: 5px;
-      border-radius: 4px;
+
+    .article small {
+      color: #888;
+      display: block;
+      margin: 10px 0;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
+
+    /* --- 6. Smooth Loader --- */
+    .loader-container {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #4e54c8;
+      margin: 0 4px;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+    
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+    
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
   </style>
 </head>
 <body>
+
+  <ul class="circles">
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+  </ul>
+
   <div id="box">
+    <h1>Location News</h1>
 
-  <h1>Location News</h1>
+    <div class="search-box">
+      <input type="text" id="locationInput" placeholder="Enter location (e.g., Delhi, NYC)">
+      <button onclick="getNews()">Search</button>
+    </div>
 
-  <div class="search-box">
-    <input type="text" id="locationInput" placeholder="Enter location (e.g., Delhi)">
-    <button onclick="getNews()">Search</button>
-  </div>
+    <div id="loader" class="loader-container">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
 
-  <div id="newsContainer" class="news"></div>
+    <div id="newsContainer" class="news"></div>
   </div>
 
   <script>
@@ -98,35 +292,60 @@
     async function getNews() {
       const location = document.getElementById("locationInput").value.trim();
       const container = document.getElementById("newsContainer");
+      const loader = document.getElementById("loader");
+
+      // Clear previous results
       container.innerHTML = "";
 
       if (!location) {
-        container.innerHTML = "<p>Please enter a location.</p>";
+        // Smooth shake animation for error? We'll just show text for now to keep it clean.
+        container.innerHTML = "<p style='text-align:center; color:#666;'>Please enter a location.</p>";
         return;
       }
+
+      // Show Smooth Loader
+      loader.style.display = "block";
 
       try {
         const res = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(location)}&apiKey=${API_KEY}`);
         const data = await res.json();
 
+        // Hide Loader
+        loader.style.display = "none";
+
         if (data.articles && data.articles.length > 0) {
-          data.articles.forEach(article => {
+          data.articles.forEach((article, index) => {
             const div = document.createElement("div");
-            div.className = "article";
+            div.className = "article"; // Base class
+            
             div.innerHTML = `
               <h3><a href="${article.url}" target="_blank">${article.title}</a></h3>
-              <small>${article.source.name} • ${new Date(article.publishedAt).toLocaleString()}</small>
-              <p>${article.description || ""}</p>
+              <small>${article.source.name} • ${new Date(article.publishedAt).toLocaleDateString()}</small>
+              <p>${article.description || "Click the title to read the full story."}</p>
             `;
             container.appendChild(div);
+
+            // MAGIC SAUCE: Trigger the animation slightly after appending
+            // The timeout creates the "Stagger" effect (Waterfall)
+            setTimeout(() => {
+              div.classList.add('visible');
+            }, index * 150); // 150ms delay between each card
           });
         } else {
-          container.innerHTML = "<p>No news found for this location.</p>";
+          container.innerHTML = "<p style='text-align:center; color:#666;'>No news found for this location.</p>";
         }
       } catch (err) {
-        container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+        loader.style.display = "none";
+        container.innerHTML = `<p style="color:red; text-align:center;">Error: ${err.message}</p>`;
       }
     }
+
+    // "Enter" key trigger
+    document.getElementById("locationInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        getNews();
+      }
+    });
   </script>
 
 </body>
