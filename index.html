@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Location News | Ultra Smooth</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,17 +26,22 @@
         box-sizing: border-box;
         margin: 0;
         padding: 0;
+        -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on mobile */
       }
 
       body {
         font-family: "Outfit", sans-serif;
         background: #0f0c29;
         background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+        /* Use dvh for mobile browsers to account for URL bar */
         min-height: 100vh;
+        min-height: 100dvh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 60px;
+        /* Responsive top padding */
+        padding-top: clamp(20px, 5vh, 60px);
+        padding-bottom: 20px;
         color: #fff;
         overflow-x: hidden;
       }
@@ -50,6 +55,7 @@
         height: 100%;
         overflow: hidden;
         z-index: -1;
+        pointer-events: none; /* Ensure clicks pass through */
       }
       .bg-animation li {
         position: absolute;
@@ -63,86 +69,48 @@
         border-radius: 50%;
       }
       /* Randomize positions & speeds */
-      .bg-animation li:nth-child(1) {
-        left: 25%;
-        width: 80px;
-        height: 80px;
-        animation-delay: 0s;
-      }
-      .bg-animation li:nth-child(2) {
-        left: 10%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 2s;
-        animation-duration: 12s;
-      }
-      .bg-animation li:nth-child(3) {
-        left: 70%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 4s;
-      }
-      .bg-animation li:nth-child(4) {
-        left: 40%;
-        width: 60px;
-        height: 60px;
-        animation-delay: 0s;
-        animation-duration: 18s;
-      }
-      .bg-animation li:nth-child(5) {
-        left: 65%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 0s;
-      }
+      .bg-animation li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+      .bg-animation li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+      .bg-animation li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+      .bg-animation li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+      .bg-animation li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
 
       @keyframes floatUp {
-        0% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 0.8;
-        }
-        100% {
-          transform: translateY(-1000px) rotate(720deg);
-          opacity: 0;
-        }
+        0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+        100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
       }
 
       /* --- 3. Main Glass Container --- */
       main {
-        width: 90%;
+        /* Width adapts to screen size */
+        width: 92%; 
         max-width: 800px;
         background: rgba(255, 255, 255, 0.03);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border: 1px solid var(--glass-border);
         border-radius: 24px;
-        padding: 40px;
+        /* Clamp padding: 20px on mobile, scaling up to 40px on desktop */
+        padding: clamp(20px, 4vw, 40px);
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         animation: slideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        margin-bottom: 20px;
       }
 
       @keyframes slideDown {
-        from {
-          opacity: 0;
-          transform: translateY(-30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       /* --- 4. Header & Typography --- */
       h1 {
         text-align: center;
         margin-bottom: 30px;
-        font-size: 2.5rem;
+        /* Responsive font size: minimum 1.8rem, ideal 5vw, max 2.5rem */
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
         background: linear-gradient(90deg, #fff, #a29bfe);
-
-        /* Add the standard property below the webkit one */
         -webkit-background-clip: text;
         background-clip: text;
-
         -webkit-text-fill-color: transparent;
         letter-spacing: -1px;
       }
@@ -183,6 +151,7 @@
         color: #fff;
         font-family: inherit;
         outline: none;
+        min-width: 0; /* Prevents input from breaking flexbox on tiny screens */
       }
 
       input::placeholder {
@@ -199,6 +168,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        white-space: nowrap; /* Prevent button text wrapping */
       }
 
       button:hover {
@@ -210,29 +180,31 @@
         transform: translateY(1px);
       }
 
+      /* Mobile Specific Tweaks */
+      @media (max-width: 480px) {
+        .search-box {
+            padding: 4px; /* Less padding to give input more room */
+        }
+        input {
+            font-size: 16px; /* Prevents iOS zoom on focus */
+            padding: 10px 15px;
+        }
+        button {
+            padding: 10px 20px; /* Smaller button on mobile */
+            font-size: 0.9rem;
+        }
+      }
+
       /* Shake Animation for Errors */
       .shake {
         animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
         border-color: #ff6b6b;
       }
       @keyframes shake {
-        10%,
-        90% {
-          transform: translate3d(-1px, 0, 0);
-        }
-        20%,
-        80% {
-          transform: translate3d(2px, 0, 0);
-        }
-        30%,
-        50%,
-        70% {
-          transform: translate3d(-4px, 0, 0);
-        }
-        40%,
-        60% {
-          transform: translate3d(4px, 0, 0);
-        }
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
       }
 
       /* --- 6. News Cards --- */
@@ -253,7 +225,6 @@
         overflow: hidden;
       }
 
-      /* The "Visible" state added by JS */
       .article.visible {
         opacity: 1;
         transform: translateY(0);
@@ -313,9 +284,7 @@
         animation: spin 1s linear infinite;
       }
       @keyframes spin {
-        100% {
-          transform: rotate(360deg);
-        }
+        100% { transform: rotate(360deg); }
       }
     </style>
   </head>
@@ -341,8 +310,9 @@
           <input
             type="text"
             id="locationInput"
-            placeholder="Search location (e.g., Tokyo, London)..."
+            placeholder="Search location (e.g., Tokyo)..."
             autocomplete="off"
+            spellcheck="false"
           />
           <button onclick="getNews()">Explore</button>
         </div>
@@ -363,13 +333,12 @@
         const loader = document.getElementById("loader");
         const location = locationInput.value.trim();
 
-        // UI Reset
         container.innerHTML = "";
         searchBox.classList.remove("shake");
+        // Remove focus from input to hide mobile keyboard after search
+        locationInput.blur(); 
 
-        // Validation
         if (!location) {
-          // Trigger Reflow for animation restart
           void searchBox.offsetWidth;
           searchBox.classList.add("shake");
           return;
@@ -389,37 +358,24 @@
 
           if (data.articles && data.articles.length > 0) {
             data.articles.slice(0, 10).forEach((article, index) => {
-              if (article.title === "[Removed]") return; // Skip broken news
+              if (article.title === "[Removed]") return;
 
               const div = document.createElement("div");
               div.className = "article";
 
-              // Safe content injection
               const date = new Date(article.publishedAt).toLocaleDateString(
                 undefined,
-                {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                }
+                { year: "numeric", month: "short", day: "numeric" }
               );
 
               div.innerHTML = `
-              <h3><a href="${
-                article.url
-              }" target="_blank" rel="noopener noreferrer">${
-                article.title
-              }</a></h3>
+              <h3><a href="${article.url}" target="_blank" rel="noopener noreferrer">${article.title}</a></h3>
               <small>${article.source.name} • ${date}</small>
-              <p>${
-                article.description ||
-                "No description available. Click the title to read the full story."
-              }</p>
+              <p>${article.description || "No description available. Click the title to read the full story."}</p>
             `;
 
               container.appendChild(div);
 
-              // Staggered Animation (The Waterfall Effect)
               setTimeout(() => {
                 div.classList.add("visible");
               }, index * 100);
@@ -433,13 +389,12 @@
           container.innerHTML = `
           <div style="text-align:center; padding:20px; background:rgba(255,0,0,0.1); border-radius:10px;">
             <p style="color:#ff6b6b; margin-bottom:5px;">Connection Failed</p>
-            <p style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Ensure 'node server.js' is running in your terminal.</p>
+            <p style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Ensure 'node server.js' is running.</p>
           </div>
         `;
         }
       }
 
-      // Allow "Enter" key to search
       document
         .getElementById("locationInput")
         .addEventListener("keypress", (e) => {
