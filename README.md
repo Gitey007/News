@@ -1,38 +1,122 @@
-# 🌍 Global News Feed (Ultra Smooth)
+# 📰 GeoNews
 
-![License](https://img.shields.io/badge/license-ISC-blue.svg) ![Node.js](https://img.shields.io/badge/node.js-v14%2B-green.svg) ![Express](https://img.shields.io/badge/express-v5.0-lightgrey.svg)
+A modern, responsive news web application that fetches and displays the latest news from around the world using the News API.
 
-A sleek, modern web application that allows users to search for news headlines based on location. Featuring a **Glassmorphism UI**, smooth CSS animations, and a secure backend proxy to handle API requests.
+## Features
 
-![App Screenshot](./assets/screenshot.png)
+- **Real-time News**: Fetches the latest headlines from trusted news sources
+- **Category Filtering**: Browse news by categories (General, Business, Technology, Sports, Entertainment, Science)
+- **Search Functionality**: Search for specific topics or keywords
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
+- **Dark Theme**: Modern dark UI with smooth animations and hover effects
+- **Click to Read**: Click any news card to open the full article in a new tab
+
+## Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- News API
+
+## Installation
+
+1. Clone or download this repository
+2. Ensure all three files are in the same directory:
+   - `index.html`
+   - `style.css`
+   - `app.js`
+3. Open `index.html` in your web browser
+
+## File Structure
+```
+GeoNews/
+│
+├── index.html          # Main HTML structure
+├── style.css           # All styling and design
+└── app.js              # JavaScript functionality and API calls
+```
+
+## API Configuration
+
+The app uses News API with the following configuration:
+- API Key: `54be8b662d1445918b5942b5bc08169c`
+- Base URL: `https://newsapi.org/v2`
+- Country: US
+- Page Size: 20 articles per request
+
+## Usage
+
+1. **Browse by Category**: Click on any category button (General, Business, Technology, etc.) to view news from that category
+2. **Search News**: Type keywords in the search bar and click "Search" or press Enter
+3. **Read Articles**: Click on any news card to open the full article in a new tab
+
+## Features in Detail
+
+### Search Bar
+- Real-time search functionality
+- Enter key support for quick searches
+- Searches across all news sources globally
+
+### Category Filtering
+- 6 main categories available
+- Active category is highlighted in blue
+- Smooth transitions between categories
+
+### News Cards
+- Display article image, title, description
+- Show news source and publication date
+- Hover effects for better UX
+- Fallback for missing images
+
+### Error Handling
+- Network error detection
+- Empty results notification
+- Loading indicators during API calls
+
+## Browser Support
+
+- Chrome (recommended)
+- Firefox
+- Safari
+- Edge
+- Opera
+
+## Limitations
+
+- News API free tier has request limits (100 requests per day)
+- Some articles may be removed or unavailable
+- Images may occasionally be missing from certain sources
+
+## Design Highlights
+
+- **Color Scheme**: Dark theme with blue accents (#4285f4)
+- **Typography**: System fonts for optimal performance
+- **Layout**: CSS Grid for responsive card layout
+- **Animations**: Smooth hover effects and transitions
+- **Accessibility**: High contrast and readable fonts
+
+## Future Enhancements
+
+- Add pagination for more articles
+- Implement bookmarking/favorites
+- Add dark/light theme toggle
+- Include more countries and languages
+- Add article filtering by date
+- Implement infinite scroll
+
+## Credits
+
+- News data provided by [News API](https://newsapi.org/)
+- Design and development by GeoNews Team
+
+## License
+
+This project is open source and available for educational purposes.
+
+## Support
+
+For issues or questions, please check the News API documentation at https://newsapi.org/docs
 
 ---
 
-## ✨ Features
-
-- **🎨 Ultra Smooth UI**: Built with modern CSS transparency effects (Glassmorphism) and animated background particles.
-- **⚡ Real-time Search**: Fetches the latest articles dynamically using the [NewsAPI](https://newsapi.org/).
-- **🔒 Secure Proxy Server**: Uses a Node.js/Express backend to hide the API key from the client-side.
-- **📱 Responsive Design**: optimized for desktop and mobile viewing with the 'Outfit' font family.
-- **🌊 Staggered Animations**: News cards cascade into view for a polished feel.
-
----
-
-## 🛠️ Architecture
-
-The app uses a client-server architecture to ensure security. The frontend never talks to the NewsAPI directly; instead, it asks your local server to do it.
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Frontend as 💻 Client (index.html)
-    participant Backend as 🛡️ Proxy Server (server.js)
-    participant API as ☁️ NewsAPI.org
-
-    User->>Frontend: Enters "London" & Hits Enter
-    Frontend->>Backend: GET /api/news?q=London
-    Note over Backend: Server adds API_KEY hidden in .env
-    Backend->>API: Request news for "London"
-    API-->>Backend: Return JSON Data
-    Backend-->>Frontend: Forward JSON Data
-    Frontend-->>User: Display Animated News Cards
+**Note**: This application requires an active internet connection to fetch news articles.
