@@ -20,7 +20,7 @@ Hosted on: Vercel
 
 ## 📸 Screenshots
 
-![GeoNews Homepage](screenshot.png)
+![GeoNews Homepage](image.png)
 _Add your screenshot here_
 
 ## 🛠️ Technologies Used
