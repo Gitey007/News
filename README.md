@@ -2,12 +2,6 @@
 
 A modern, responsive news web application that fetches and displays the latest news from around the world using the News API.
 
-## 🚀 Live Demo
-
-**[View Live Project](https://sahulnews.vercel.app)**
-
-Hosted on: Vercel
-
 ## 📸 Screenshots
 
 ![GeoNews Homepage](assets/image.png)
