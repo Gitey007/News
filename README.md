@@ -4,7 +4,7 @@ A modern, responsive news web application that fetches and displays the latest n
 
 ## 📸 Screenshots
 
-![GeoNews Homepage](assets/screenshot.png)
+![GeoNews Homepage](assets/image.png)
 
 ## Features
 
