@@ -2,6 +2,10 @@
 
 A modern, responsive news web application that fetches and displays the latest news from around the world using the News API.
 
+## Screenshots
+
+![GeoNews Homepage](GeoNews.png)
+
 ## Features
 
 - **Real-time News**: Fetches the latest headlines from trusted news sources
@@ -107,7 +111,7 @@ The app uses News API with the following configuration:
 ## Credits
 
 - News data provided by [News API](https://newsapi.org/)
-- Design and development by GeoNews Team
+- Developed by [Sahul Kumar/Gitey007]
 
 ## License
 
