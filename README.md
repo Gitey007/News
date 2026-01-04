@@ -1,12 +1,10 @@
 # 📰 GeoNews
 
-A modern, responsive news web application that fetches and displays the latest news from around the world using the GNews API.
+A modern, responsive news web application that fetches and displays the latest news from around the world using the News API.
 
-## 🚀 Live Demo
+## 📸 Screenshots
 
-**[View Live Project](https://sahulnews.vercel.app)**
-
-Hosted on: Vercel
+![GeoNews Homepage](assets/screenshot.png)
 
 ## Features
 
@@ -18,35 +16,31 @@ Hosted on: Vercel
 - **Click to Read**: Click any news card to open the full article in a new tab
 - **Fast & Lightweight**: Optimized performance with minimal dependencies
 
-## 📸 Screenshots
-
-![GeoNews Homepage](image.png)
-_Add your screenshot here_
-
 ## 🛠️ Technologies Used
 
 - **HTML5** - Structure and semantic markup
 - **CSS3** - Styling with modern design patterns
 - **JavaScript (ES6+)** - Dynamic functionality and API integration
-- **GNews API** - Real-time news data provider
+- **News API** - Real-time news data provider
 - **Vercel** - Deployment and hosting platform
 
 ## 📁 File Structure
 ```
 GeoNews/
 │
-├── index.html          # Main HTML structure
-├── style.css           # All styling and design
-├── app.js              # JavaScript functionality and API calls
-└── README.md           # Project documentation
-```
+├── assets/
+│   └── screenshot.png      # Project screenshot
+├── index.html              # Main HTML structure
+├── style.css               # All styling and design
+├── app.js                  # JavaScript functionality and API calls
+└── README.md               # Project documentation
 
 ## 🚀 Installation & Setup
 
 ### Prerequisites
 - A modern web browser (Chrome, Firefox, Safari, Edge)
 - A local development server (optional but recommended)
-- GNews API key
+- News API key
 
 ### Step 1: Clone the Repository
 ```bash
@@ -54,26 +48,21 @@ git clone https://github.com/yourusername/geonews.git
 cd geonews
 ```
 
-### Step 2: Get Your GNews API Key
-1. Visit [GNews.io](https://gnews.io/)
+### Step 2: Get Your News API Key
+1. Visit [NewsAPI.org](https://newsapi.org/)
 2. Sign up for a free account
 3. Get your API key from the dashboard
-4. Free tier includes: 100 requests/day
+4. Free tier includes: 100 requests/day for development
 
 ### Step 3: Configure API Key
 Open `app.js` and replace the API key:
 ```javascript
-const API_KEY = 'YOUR_GNEWS_API_KEY_HERE';
+const API_KEY = 'YOUR_NEWS_API_KEY_HERE';
 ```
 
 ### Step 4: Run the Application
 
-**Option A - Direct (may have CORS issues):**
-```bash
-Open index.html in your browser
-```
-
-**Option B - With Live Server (Recommended):**
+**Option A - With Live Server (Recommended):**
 
 Using VS Code:
 1. Install "Live Server" extension
@@ -91,6 +80,11 @@ Using Node.js:
 npx http-server
 ```
 
+**Option B - Direct:**
+```bash
+Open index.html in your browser
+```
+
 ## 🌐 Deployment
 
 This project is deployed on **Vercel**. To deploy your own version:
@@ -105,10 +99,7 @@ This project is deployed on **Vercel**. To deploy your own version:
    - Framework Preset: Other
    - Build Command: (leave empty)
    - Output Directory: (leave empty)
-6. Add Environment Variables (Optional):
-   - Name: `GNEWS_API_KEY`
-   - Value: Your GNews API key
-7. Click "Deploy"
+6. Click "Deploy"
 
 Your site will be live at: `your-project-name.vercel.app`
 
@@ -165,23 +156,23 @@ git push origin gh-pages
 
 ## 🔧 API Configuration
 
-### GNews API Details
-- **Base URL**: `https://gnews.io/api/v4`
+### News API Details
+- **Base URL**: `https://newsapi.org/v2`
 - **Endpoints Used**:
-  - `/top-headlines` - For category-based news
-  - `/search` - For keyword searches
+  - `/top-headlines` - For category-based and country news
+  - `/everything` - For keyword searches
 - **Parameters**:
-  - `apikey` - Your API authentication key
-  - `lang` - Language (set to English)
-  - `max` - Maximum articles (20 per request)
+  - `apiKey` - Your API authentication key
+  - `country` - Country code (US)
   - `category` - News category filter
+  - `pageSize` - Number of articles (20)
   - `q` - Search query
 
 ### API Limits (Free Tier)
-- 100 requests per day
-- 20 articles per request
-- English language news
-- No commercial use
+- 100 requests per day for development
+- 500 requests per day for production (paid)
+- 20 articles per request (max 100)
+- News from 150,000+ sources
 
 ## 🌐 Browser Support
 
@@ -195,17 +186,17 @@ git push origin gh-pages
 
 ## ⚠️ Known Limitations
 
-- **CORS Restrictions**: Must be run on a local server (not file://)
-- **API Rate Limit**: 100 requests per day on free tier
-- **Language**: Currently supports English news only
-- **Region**: No country-specific filtering in current version
+- **API Rate Limit**: 100 requests per day on free developer tier
+- **CORS**: May require local server for development
+- **Country**: Currently set to US news
+- **Removed Articles**: Some articles may show "[Removed]" title
 
 ## 🚧 Future Enhancements
 
 - [ ] Add pagination for browsing more articles
 - [ ] Implement bookmarking/favorites feature
 - [ ] Add dark/light theme toggle
-- [ ] Support for multiple languages
+- [ ] Support for multiple countries
 - [ ] Add date range filtering
 - [ ] Implement infinite scroll
 - [ ] Add share functionality for articles
@@ -239,39 +230,33 @@ Contributions are welcome! Here's how you can help:
 - Responsive design principles
 - Performance optimization
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-Free for educational and personal use.
 
 ## 👨‍💻 Credits
 
-- **News Data**: Provided by [GNews API](https://gnews.io/)
-- **Design & Development**: GeoNews Team
+- **News Data**: Provided by [News API](https://newsapi.org/)
+- **Design & Development**: Sahul Kumar
 - **Deployment**: Vercel
 - **Icons**: Emoji icons from system fonts
 
 ## 🔗 Links
 
 - **Live Demo**: [https://sahulnews.vercel.app](https://sahulnews.vercel.app)
-- **GitHub Repository**: [Add your GitHub repo link]
-- **GNews API**: [https://gnews.io](https://gnews.io)
+- **News API**: [https://newsapi.org](https://newsapi.org)
+- **Documentation**: [https://newsapi.org/docs](https://newsapi.org/docs)
 
 ## 📞 Support
 
 For issues, questions, or suggestions:
 
-- **GNews API Documentation**: [https://gnews.io/docs/v4](https://gnews.io/docs/v4)
-- **Report Issues**: [GitHub Issues](#)
-- **Contact**: [Your Email/Contact]
+- **News API Documentation**: [https://newsapi.org/docs](https://newsapi.org/docs)
+- **Report Issues**: Create an issue on GitHub
 
 ## 📋 Changelog
 
 ### Version 1.0.0 (Current)
 - Initial release
 - Basic news fetching and display
-- Category filtering
+- Category filtering (6 categories)
 - Search functionality
 - Dark theme UI
 - Responsive design
@@ -279,7 +264,7 @@ For issues, questions, or suggestions:
 
 ---
 
-**Note**: This application requires an active internet connection and a valid GNews API key to fetch news articles.
+**Note**: This application requires an active internet connection and a valid News API key to fetch news articles.
 
 ---
 

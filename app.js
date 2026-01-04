@@ -1,5 +1,5 @@
-const API_KEY = 'c15d6ae3898f1988b050874fec4dee8c';
-const BASE_URL = 'https://gnews.io/api/v4';
+const API_KEY = '54be8b662d1445918b5942b5bc08169c';
+const BASE_URL = 'https://newsapi.org/v2';
 
 const newsContainer = document.getElementById('newsContainer');
 const loader = document.getElementById('loader');
@@ -17,18 +17,18 @@ async function fetchNews(category = 'general', query = '') {
     try {
         let url;
         if (query) {
-            url = `${BASE_URL}/search?q=${encodeURIComponent(query)}&lang=en&max=20&apikey=${API_KEY}`;
+            url = `${BASE_URL}/everything?q=${encodeURIComponent(query)}&apiKey=${API_KEY}&pageSize=20`;
         } else {
-            url = `${BASE_URL}/top-headlines?category=${category}&lang=en&max=20&apikey=${API_KEY}`;
+            url = `${BASE_URL}/top-headlines?country=us&category=${category}&apiKey=${API_KEY}&pageSize=20`;
         }
         
         const response = await fetch(url);
         const data = await response.json();
         
-        if (data.articles) {
+        if (data.status === 'ok') {
             displayNews(data.articles);
         } else {
-            showError(data.errors?.[0] || 'Failed to fetch news. Please try again.');
+            showError(data.message || 'Failed to fetch news. Please try again.');
         }
     } catch (error) {
         showError('Network error. Please check your connection.');
@@ -46,12 +46,12 @@ function displayNews(articles) {
     }
     
     articles.forEach(article => {
-        if (!article.title) return;
+        if (!article.title || article.title === '[Removed]') return;
         
         const card = document.createElement('div');
         card.className = 'news-card';
         
-        const imageUrl = article.image || '';
+        const imageUrl = article.urlToImage || '';
         const title = article.title || 'No title';
         const description = article.description || 'No description available';
         const source = article.source.name || 'Unknown';
