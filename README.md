@@ -288,12 +288,6 @@ Contributions are welcome! Here's how you can help:
 - For production deployment, switch to GNews API or similar
 - API key should be kept secure (use environment variables in production)
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-Free for educational and personal use.
-
 ## 👨‍💻 Credits
 
 - **News Data**: Provided by [News API](https://newsapi.org/) (Development) / [GNews API](https://gnews.io/) (Production)
